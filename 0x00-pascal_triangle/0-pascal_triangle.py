@@ -2,6 +2,7 @@
 '''Module for handling Pascal's triangle.
 '''
 
+
 def pascal_triangle(n):
     '''Generates a list of lists containing integers representing
     Pascal's triangle up to the specified row.
