@@ -1,30 +1,35 @@
 #!/usr/bin/python3
-"""
-Calculates the fewest number of operations needed to result in exactly n H characters in the file.
-"""
+'''Coding challenge.
+'''
 
 
 def minOperations(n):
-    """
-    Returns the fewest number of operations needed to result in exactly n H characters in the file.
-
-    Parameters:
-    - n (int): Target number of H characters.
-
-    Returns:
-    - int: Fewest number of operations.
-    """
-    if n <= 1:
+    '''Computes the fewest number of operations needed to result
+    in exactly n H characters.
+    '''
+    if not isinstance(n, int):
         return 0
-
-    operations = 0
-    i = 2
-
-    while i <= n:
-        if n % i == 0:
-            n //= i
-            operations += i
-        else:
-            i += 1
-
-    return operations
+    ops_count = 0
+    clipboard = 0
+    done = 1
+    # print('H', end='')
+    while done < n:
+        if clipboard == 0:
+            # init (the first copy all and paste)
+            clipboard = done
+            done += clipboard
+            ops_count += 2
+            # print('-(11)->{}'.format('H' * done), end='')
+        elif n - done > 0 and (n - done) % done == 0:
+            # copy all and paste
+            clipboard = done
+            done += clipboard
+            ops_count += 2
+            # print('-(11)->{}'.format('H' * done), end='')
+        elif clipboard > 0:
+            # paste
+            done += clipboard
+            ops_count += 1
+            # print('-(01)->{}'.format('H' * done), end='')
+    # print('')
+    return ops_count
